@@ -44,6 +44,16 @@ app.get('/api/parts', (req, res) => {
   });
 });
 
+app.get("/api/contacts/:partId", (req, res) => {
+  db.collection(CONTACTS_COLLECTION).findOne({ _id: new ObjectID(req.params.partId) }, (err, event) => {
+    if (err) {
+      res.status(400).send(err);
+    } else {
+      res.status(200).json(event);
+    }
+  });
+});
+
 app.post("/api/parts", (req, res) => {
   var newContact = req.body;
 
@@ -56,46 +66,26 @@ app.post("/api/parts", (req, res) => {
   });
 });
 
+app.put("/api/contacts/:partId", (req, res) => {
+  var updateDoc = req.body;
+  delete updateDoc._id;
 
-// app.post('/api/parts', (req, res) => {
-// 	var new_event = new Part(req.body);
-// 	new_event.save((err, event) => {
-// 		if (err) {
-// 			res.status(400).send(err);
-// 		} else {
-// 			res.status(200).send(event);
-// 		}
-// 	})
-// });
-
-app.get('/api/parts/:partId', (req, res) => {
-	Part.findById(req.params.partId, (err, event) => {
+  db.collection(CONTACTS_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, (err, event) => {
     if (err) {
       res.status(400).send(err);
     } else {
-    	res.status(200).json(event);
-  	}
-  });
-});
-
-app.put('/api/events/:eventId', (req, res) => {
-	Part.findOneAndUpdate({_id: req.params.eventId}, req.body, {new: true}, (err, event) => {
-    if (err) {
-      res.status(400).send(err);
-    } else {
-    	res.status(200).json(event);
+      updateDoc._id = req.params.partId;
+      res.status(200).json(updateDoc);
     }
   });
 });
 
-app.delete('/api/parts/:partId', (req, res) => {
-	Part.remove({
-    _id: req.params.partId
-  }, (err, event) => {
+app.delete("/api/parts/:partId", (req, res) => {
+  db.collection(PARTS_COLLECTION).deleteOne({ _id: new ObjectID(req.params.partId )}, (err, event) => {
     if (err) {
       res.status(400).send(err);
     } else {
-    	res.status(200).send({ message: 'Part successfully deleted' });
-   	}
+      res.status(200).send({message: 'Part successfully deleted'});
+    }
   });
 });
