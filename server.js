@@ -44,8 +44,8 @@ app.get('/api/parts', (req, res) => {
   });
 });
 
-app.get("/api/contacts/:partId", (req, res) => {
-  db.collection(CONTACTS_COLLECTION).findOne({ _id: new ObjectID(req.params.partId) }, (err, event) => {
+app.get("/api/parts/:partId", (req, res) => {
+  db.collection(PARTS_COLLECTION).findOne({ _id: new ObjectID(req.params.partId) }, (err, event) => {
     if (err) {
       res.status(400).send(err);
     } else {
@@ -70,7 +70,7 @@ app.put("/api/contacts/:partId", (req, res) => {
   var updateDoc = req.body;
   delete updateDoc._id;
 
-  db.collection(CONTACTS_COLLECTION).updateOne({_id: new ObjectID(req.params.id)}, updateDoc, (err, event) => {
+  db.collection(CONTACTS_COLLECTION).updateOne({_id: new ObjectID(req.params.partId)}, updateDoc, (err, event) => {
     if (err) {
       res.status(400).send(err);
     } else {
