@@ -37,7 +37,6 @@ app.get('/api/parts', (req, res) => {
   db.collection(PARTS_COLLECTION).find({}).toArray((err, event) => {
     if(err) {
       res.status(400).send(err);
-      console.log(err);
     } else {
       res.status(200).json(event);
     }
@@ -55,22 +54,22 @@ app.get("/api/parts/:partId", (req, res) => {
 });
 
 app.post("/api/parts", (req, res) => {
-  var newContact = req.body;
+  var newPart = req.body;
 
-  db.collection(PARTS_COLLECTION).insertOne(newContact, function(err, event) {
+  db.collection(PARTS_COLLECTION).insertOne(newPart, (err, event) => {
     if (err) {
       res.status(400).send(err);
     } else {
-      res.status(200).json(event);
+      res.status(200).json(newPart);
     }
   });
 });
 
-app.put("/api/contacts/:partId", (req, res) => {
+app.put("/api/parts/:partId", (req, res) => {
   var updateDoc = req.body;
   delete updateDoc._id;
 
-  db.collection(CONTACTS_COLLECTION).updateOne({_id: new ObjectID(req.params.partId)}, updateDoc, (err, event) => {
+  db.collection(PARTS_COLLECTION).updateOne({_id: new ObjectID(req.params.partId)}, updateDoc, (err, event) => {
     if (err) {
       res.status(400).send(err);
     } else {
