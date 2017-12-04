@@ -1,17 +1,19 @@
-var express = require('express'),
-    app = express(),
-    mongodb = require('mongodb'),
-    ObjectID = mongodb.ObjectID,
-    bodyParser = require('body-parser');
+var express     = require('express'),
+    app         = express(),
+    mongodb     = require('mongodb'),
+    ObjectID    = mongodb.ObjectID,
+    bodyParser  = require('body-parser'),
+    portId        = process.env.PORT || 3001; 
 
 var PARTS_COLLECTION = 'parts';
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-var db;
+var db,
+    enviornment = (portId === 3001) ? 'mongodb://localhost/machshop' : 'mongodb://admin:machmango@ds127936.mlab.com:27936/heroku_htdsz891';
 
-mongodb.MongoClient.connect(/*mongodb://localhost/machshop'*/'mongodb://admin:machmango@ds127936.mlab.com:27936/heroku_htdsz891', (err, database) => {
+mongodb.MongoClient.connect(enviornment, (err, database) => {
   if (err) {
     console.log(err);
     process.exit(1);
@@ -20,7 +22,7 @@ mongodb.MongoClient.connect(/*mongodb://localhost/machshop'*/'mongodb://admin:ma
   db = database;
   console.log('Database connection ready');
 
-  var server = app.listen(process.env.PORT || 3001, () => {
+  var server = app.listen(portId, () => {
     var port = server.address().port;
     console.log("App running on port ", port);
   });
@@ -34,6 +36,7 @@ app.use( (req, res, next) => {
 });
 
 app.get('/api/parts', (req, res) => {
+  // query params are at req.query
   db.collection(PARTS_COLLECTION).find({}).toArray((err, event) => {
     if(err) {
       res.status(400).send(err);
