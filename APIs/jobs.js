@@ -12,7 +12,7 @@ mongodb.MongoClient.connect(enviornment, (err, database) => {
   }
 
   db = database;
-  console.log('Jobs connection ready');
+  console.log('jobs connection ready');
 });
 
 exports.getAllJobs = (req, res) => {
@@ -27,7 +27,7 @@ exports.getAllJobs = (req, res) => {
 }
 
 exports.getIndividualJob = (req, res) => {
-	db.collection(JOBS_COLLECTION).findOne({ _id: new ObjectID(req.params.partId) }, (err, event) => {
+	db.collection(JOBS_COLLECTION).findOne({ _id: new ObjectID(req.params.jobId) }, (err, event) => {
     if (err) {
       res.status(400).send(err);
     } else {
@@ -37,13 +37,13 @@ exports.getIndividualJob = (req, res) => {
 }
 
 exports.postJobs = (req, res) => {
-	var newPart = req.body;
+	var newJob = req.body;
 
-  db.collection(JOBS_COLLECTION).insertOne(newPart, (err, event) => {
+  db.collection(JOBS_COLLECTION).insertOne(newJob, (err, event) => {
     if (err) {
       res.status(400).send(err);
     } else {
-      res.status(200).json(newPart);
+      res.status(200).json(newJob);
     }
   });
 }
@@ -52,18 +52,18 @@ exports.putJobs = (req, res) => {
 	var updateDoc = req.body;
   delete updateDoc._id;
 
-  db.collection(JOBS_COLLECTION).updateOne({_id: new ObjectID(req.params.partId)}, updateDoc, (err, event) => {
+  db.collection(JOBS_COLLECTION).updateOne({_id: new ObjectID(req.params.jobId)}, updateDoc, (err, event) => {
     if (err) {
       res.status(400).send(err);
     } else {
-      updateDoc._id = req.params.partId;
+      updateDoc._id = req.params.jobId;
       res.status(200).json(updateDoc);
     }
   });
 }
 
 exports.deleteJobs = (req, res) => {
-	db.collection(JOBS_COLLECTION).deleteOne({ _id: new ObjectID(req.params.partId )}, (err, event) => {
+	db.collection(JOBS_COLLECTION).deleteOne({ _id: new ObjectID(req.params.jobId )}, (err, event) => {
     if (err) {
       res.status(400).send(err);
     } else {
