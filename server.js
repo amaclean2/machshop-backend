@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 var server = app.listen(portId, () => {
     var port = server.address().port;
     console.log("App running on port ", port);
-  });
+});
 
 app.use( (req, res, next) => {
 	res.setHeader('Access-Control-Allow-Origin', '*');
@@ -28,4 +28,7 @@ app.put("/api/parts/:partId", parts.putParts);
 app.delete("/api/parts/:partId", parts.deleteParts);
 
 app.get('/api/jobs', jobs.getAllJobs);
+app.get('/api/jobs/:jobId', jobs.getIndividualJob);
 app.post('/api/jobs', jobs.postJobs);
+app.put('/api/jobs/:jobId', jobs.putJobs);
+app.delete('/api/jobs/:jobId', jobs.deleteJobs);
