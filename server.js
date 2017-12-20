@@ -3,8 +3,9 @@ var express     = require('express'),
     mongodb     = require('mongodb'),
     bodyParser  = require('body-parser'),
     portId      = process.env.PORT || 3001;
-    parts       = require('./APIs/parts');
-    jobs        = require('./APIs/jobs');
+    parts       = require('./APIs/parts'),
+    jobs        = require('./APIs/jobs'),
+    events      = require('./APIs/events');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -32,3 +33,9 @@ app.get('/api/jobs/:jobId', jobs.getIndividualJob);
 app.post('/api/jobs', jobs.postJobs);
 app.put('/api/jobs/:jobId', jobs.putJobs);
 app.delete('/api/jobs/:jobId', jobs.deleteJobs);
+
+app.get('/api/events', events.getAllEvents);
+app.get('/api/events/:eventId', events.getIndividualEvent);
+app.post('/api/events', events.postEvents);
+app.put('/api/events/:eventId', events.putEvents);
+app.delete('/api/events/:eventId', events.deleteEvents);
