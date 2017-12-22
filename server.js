@@ -6,6 +6,7 @@ var express     = require('express'),
     parts       = require('./APIs/parts'),
     jobs        = require('./APIs/jobs'),
     events      = require('./APIs/events');
+    users       = require('./APIs/users');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -39,3 +40,9 @@ app.get('/api/events/:eventId', events.getIndividualEvent);
 app.post('/api/events', events.postEvents);
 app.put('/api/events/:eventId', events.putEvents);
 app.delete('/api/events/:eventId', events.deleteEvents);
+
+app.get('/api/users', users.getAllUsers);
+app.get('/api/users/:eventId', users.getIndividualUser);
+app.post('/api/users', users.postUsers);
+app.put('/api/users/:userId', users.putUsers);
+app.delete('/api/users/:userId', users.deleteUsers);
