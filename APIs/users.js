@@ -52,7 +52,7 @@ exports.putUsers = (req, res) => {
 	var updateDoc = req.body;
   delete updateDoc._id;
 
-  db.collection(USERS_COLLECTION).updateOne({_id: new ObjectID(req.params.eventId)}, updateDoc, (err, user) => {
+  db.collection(USERS_COLLECTION).updateOne({_id: new ObjectID(req.params.userId)}, updateDoc, (err, user) => {
     if (err) {
       res.status(400).send(err);
     } else {
