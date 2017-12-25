@@ -50,6 +50,6 @@ app.delete('/api/users/:userId', users.deleteUsers);
 
 app.get('/api/companies', companies.getAllCompanies);
 app.get('/api/companies/:companyId', companies.getIndividualCompany);
-app.post('/api/companies', companies.postCompanies);
-app.put('/api/companies/:companyId', companies.putCompanies);
-app.delete('/api/companies/:companyId', companies.deleteCompanies);
+app.post('/api/companies', companies.postCompany);
+app.put('/api/companies/:companyId', companies.putCompany);
+app.delete('/api/companies/:companyId', companies.deleteCompany);

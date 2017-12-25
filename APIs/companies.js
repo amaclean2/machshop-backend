@@ -36,7 +36,7 @@ exports.getIndividualCompany = (req, res) => {
   });
 }
 
-exports.postCompanies = (req, res) => {
+exports.postCompany = (req, res) => {
 	var newCompany = req.body;
 
   db.collection(COMPANY_COLLECTION).insertOne(newCompany, (err, company) => {
@@ -62,7 +62,7 @@ exports.putCompany = (req, res) => {
   });
 }
 
-exports.deleteCompanies = (req, res) => {
+exports.deleteCompany = (req, res) => {
 	db.collection(COMPANY_COLLECTION).deleteOne({ _id: new ObjectID(req.params.companyId )}, (err, company) => {
     if (err) {
       res.status(400).send(err);
