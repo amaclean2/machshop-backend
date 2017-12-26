@@ -15,6 +15,17 @@ mongodb.MongoClient.connect(enviornment, (err, database) => {
   console.log('users connection ready');
 });
 
+exports.getWithoutAuth = (req, res) => {
+  // query params are at req.query
+  db.collection(USERS_COLLECTION).find({ }).toArray((err, user) => {
+    if(err) {
+      res.status(400).send(err);
+    } else {
+      res.status(200).json(user);
+    }
+  });
+}
+
 exports.getAllUsers = (req, res) => {
 	// query params are at req.query
   db.collection(USERS_COLLECTION).find({ company_id: req.query.company_id }).toArray((err, user) => {
