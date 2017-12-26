@@ -17,7 +17,6 @@ mongodb.MongoClient.connect(enviornment, (err, database) => {
 
 exports.getAllCompanies = (req, res) => {
 	// query params are at req.query
-  console.log('here');
   db.collection(COMPANY_COLLECTION).find({}).toArray((err, company) => {
     if(err) {
       res.status(400).send(err);

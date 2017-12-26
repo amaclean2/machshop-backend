@@ -17,7 +17,7 @@ mongodb.MongoClient.connect(enviornment, (err, database) => {
 
 exports.getAllParts = (req, res) => {
 	// query params are at req.query
-  db.collection(PARTS_COLLECTION).find({}).toArray((err, event) => {
+  db.collection(PARTS_COLLECTION).find({ company_id: req.query.company_id }).toArray((err, event) => {
     if(err) {
       res.status(400).send(err);
     } else {
@@ -27,7 +27,7 @@ exports.getAllParts = (req, res) => {
 }
 
 exports.getIndividualPart = (req, res) => {
-	db.collection(PARTS_COLLECTION).findOne({ _id: new ObjectID(req.params.partId) }, (err, event) => {
+	db.collection(PARTS_COLLECTION).findOne({ _id: new ObjectID(req.params.partId), company_id: req.query.company_id  }, (err, event) => {
     if (err) {
       res.status(400).send(err);
     } else {

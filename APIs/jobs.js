@@ -17,7 +17,7 @@ mongodb.MongoClient.connect(enviornment, (err, database) => {
 
 exports.getAllJobs = (req, res) => {
 	// query params are at req.query
-  db.collection(JOBS_COLLECTION).find({}).toArray((err, event) => {
+  db.collection(JOBS_COLLECTION).find({ company_id: req.query.company_id }).toArray((err, event) => {
     if(err) {
       res.status(400).send(err);
     } else {
@@ -27,7 +27,7 @@ exports.getAllJobs = (req, res) => {
 }
 
 exports.getIndividualJob = (req, res) => {
-	db.collection(JOBS_COLLECTION).findOne({ _id: new ObjectID(req.params.jobId) }, (err, event) => {
+	db.collection(JOBS_COLLECTION).findOne({ _id: new ObjectID(req.params.jobId), company_id: req.query.company_id }, (err, event) => {
     if (err) {
       res.status(400).send(err);
     } else {

@@ -17,7 +17,7 @@ mongodb.MongoClient.connect(enviornment, (err, database) => {
 
 exports.getAllUsers = (req, res) => {
 	// query params are at req.query
-  db.collection(USERS_COLLECTION).find({}).toArray((err, user) => {
+  db.collection(USERS_COLLECTION).find({ company_id: req.query.company_id }).toArray((err, user) => {
     if(err) {
       res.status(400).send(err);
     } else {
@@ -27,7 +27,7 @@ exports.getAllUsers = (req, res) => {
 }
 
 exports.getIndividualUser = (req, res) => {
-	db.collection(USERS_COLLECTION).findOne({ _id: new ObjectID(req.params.userId) }, (err, user) => {
+	db.collection(USERS_COLLECTION).findOne({ _id: new ObjectID(req.params.userId), company_id: req.query.company_id  }, (err, user) => {
     if (err) {
       res.status(400).send(err);
     } else {

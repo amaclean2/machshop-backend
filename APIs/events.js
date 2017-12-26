@@ -17,7 +17,7 @@ mongodb.MongoClient.connect(enviornment, (err, database) => {
 
 exports.getAllEvents = (req, res) => {
 	// query params are at req.query
-  db.collection(EVENTS_COLLECTION).find({}).toArray((err, event) => {
+  db.collection(EVENTS_COLLECTION).find({ company_id: req.query.company_id }).toArray((err, event) => {
     if(err) {
       res.status(400).send(err);
     } else {
@@ -27,7 +27,7 @@ exports.getAllEvents = (req, res) => {
 }
 
 exports.getIndividualEvent = (req, res) => {
-	db.collection(EVENTS_COLLECTION).findOne({ _id: new ObjectID(req.params.eventId) }, (err, event) => {
+	db.collection(EVENTS_COLLECTION).findOne({ _id: new ObjectID(req.params.eventId), company_id: req.query.company_id  }, (err, event) => {
     if (err) {
       res.status(400).send(err);
     } else {
