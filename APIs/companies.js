@@ -17,7 +17,8 @@ mongodb.MongoClient.connect(enviornment, (err, database) => {
 
 exports.getAllCompanies = (req, res) => {
 	// query params are at req.query
-  db.collection(COMPANY_COLLECTION).find({}).toArray((err, user) => {
+  console.log('here');
+  db.collection(COMPANY_COLLECTION).find({}).toArray((err, company) => {
     if(err) {
       res.status(400).send(err);
     } else {
@@ -27,7 +28,7 @@ exports.getAllCompanies = (req, res) => {
 }
 
 exports.getIndividualCompany = (req, res) => {
-	db.collection(COMPANY_COLLECTION).findOne({ _id: new ObjectID(req.params.companyId) }, (err, user) => {
+	db.collection(COMPANY_COLLECTION).findOne({ _id: new ObjectID(req.params.companyId) }, (err, company) => {
     if (err) {
       res.status(400).send(err);
     } else {
