@@ -26,8 +26,7 @@ exports.getWithoutAuth = (req, res) => {
   });
 }
 
-exports.getAllUsers = (req, res) => {
-	// query params are at req.query
+exports.getUsers = (req, res) => {
   db.collection(USERS_COLLECTION).find({ company_id: req.query.company_id }).toArray((err, user) => {
     if(err) {
       res.status(400).send(err);

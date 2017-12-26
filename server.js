@@ -42,8 +42,8 @@ app.post('/api/events', events.postEvents);
 app.put('/api/events/:eventId', events.putEvents);
 app.delete('/api/events/:eventId', events.deleteEvents);
 
-app.get('/api/allusers', users.getAllUsers);
-app.get('/api/users', users.getWithoutAuth);
+app.get('/api/users', users.getUsers);
+app.get('/api/allusers', users.getWithoutAuth);
 app.get('/api/users/:userId', users.getIndividualUser);
 app.post('/api/users', users.postUsers);
 app.put('/api/users/:userId', users.putUsers);
