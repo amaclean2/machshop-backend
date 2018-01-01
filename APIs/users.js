@@ -48,7 +48,7 @@ exports.getUsers = (req, res) => {
 }
 
 exports.getIndividualUser = (req, res) => {
-	db.collection(USERS_COLLECTION).findOne({ _id: new ObjectID(req.params.userId), company_id: req.query.company_id  }, (err, user) => {
+	db.collection(USERS_COLLECTION).findOne({ _id: new ObjectID(req.params.userId)  }, (err, user) => {
     if (err) {
       res.status(400).send(err);
     } else {
