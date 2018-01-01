@@ -17,18 +17,7 @@ mongodb.MongoClient.connect(enviornment, (err, database) => {
 
 exports.getAllEvents = (req, res) => {
 	// query params are at req.query
-  db.collection(EVENTS_COLLECTION).find({ company_id: req.query.company_id }).toArray((err, event) => {
-    if(err) {
-      res.status(400).send(err);
-    } else {
-      res.status(200).json(event);
-    }
-  });
-}
-
-exports.getGlobalEvents = (req, res) => {
-  // query params are at req.query
-  if(req.params.companyId === '1100') {
+  if(req.query.company_id === '1100') {
     db.collection(EVENTS_COLLECTION).find({ }).toArray((err, event) => {
       if(err) {
         res.status(400).send(err);
@@ -37,9 +26,14 @@ exports.getGlobalEvents = (req, res) => {
       }
     });
   } else {
-    res.status(400).send('invalid company');
+    db.collection(EVENTS_COLLECTION).find({ company_id: req.query.company_id }).toArray((err, event) => {
+      if(err) {
+        res.status(400).send(err);
+      } else {
+        res.status(200).json(event);
+      }
+    });
   }
-    
 }
 
 exports.getIndividualEvent = (req, res) => {

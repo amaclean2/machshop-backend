@@ -17,18 +17,7 @@ mongodb.MongoClient.connect(enviornment, (err, database) => {
 
 exports.getAllJobs = (req, res) => {
 	// query params are at req.query
-  db.collection(JOBS_COLLECTION).find({ company_id: req.query.company_id }).toArray((err, event) => {
-    if(err) {
-      res.status(400).send(err);
-    } else {
-      res.status(200).json(event);
-    }
-  });
-}
-
-exports.getGlobalJobs = (req, res) => {
-  // query params are at req.query
-  if(req.params.companyId === '1100') {
+  if(req.query.company_id === '1100') {
     db.collection(JOBS_COLLECTION).find({ }).toArray((err, event) => {
       if(err) {
         res.status(400).send(err);
@@ -37,8 +26,14 @@ exports.getGlobalJobs = (req, res) => {
       }
     });
   } else {
-    res.status(400).send('company invalid');
-  }
+    db.collection(JOBS_COLLECTION).find({ company_id: req.query.company_id }).toArray((err, event) => {
+      if(err) {
+        res.status(400).send(err);
+      } else {
+        res.status(200).json(event);
+      }
+    });
+  } 
 }
 
 exports.getIndividualJob = (req, res) => {

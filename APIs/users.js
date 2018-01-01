@@ -28,13 +28,23 @@ exports.getWithoutAuth = (req, res) => {
 }
 
 exports.getUsers = (req, res) => {
-  db.collection(USERS_COLLECTION).find({ company_id: req.query.companyId }).toArray((err, user) => {
-    if(err) {
-      res.status(400).send(err);
-    } else {
-      res.status(200).json(user);
-    }
-  });
+  if(req.query.company_id === '1100') {
+    db.collection(USERS_COLLECTION).find({ }).toArray((err, user) => {
+      if(err) {
+        res.status(400).send(err);
+      } else {
+        res.status(200).json(user);
+      }
+    });
+  } else {
+    db.collection(USERS_COLLECTION).find({ company_id: req.query.companyId }).toArray((err, user) => {
+      if(err) {
+        res.status(400).send(err);
+      } else {
+        res.status(200).json(user);
+      }
+    });
+  }
 }
 
 exports.getIndividualUser = (req, res) => {

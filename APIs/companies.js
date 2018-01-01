@@ -17,7 +17,7 @@ mongodb.MongoClient.connect(enviornment, (err, database) => {
 
 exports.getAllCompanies = (req, res) => {
 	// query params are at req.query
-  if(req.params.companyId === '1100') {
+  if(req.query.company_id === '1100') {
     db.collection(COMPANY_COLLECTION).find({ }).toArray((err, company) => {
       if(err) {
         res.status(400).send(err);
@@ -26,7 +26,12 @@ exports.getAllCompanies = (req, res) => {
       }
     });
   } else {
-    res.status(400).send('invalid company');
+    db.collection(COMPANY_COLLECTION).find({ }).toArray((err, company) => {
+      if(err) {
+        res.status(400).send(err);
+      } else {
+        res.status(200).json(company);
+      }
   }
     
 }
