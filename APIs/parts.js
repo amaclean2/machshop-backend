@@ -26,6 +26,22 @@ exports.getAllParts = (req, res) => {
   });
 }
 
+exports.getGlobalParts = (req, res) => {
+  // query params are at req.query
+  if(req.query.company_id === '1100') {
+    db.collection(PARTS_COLLECTION).find({ }).toArray((err, event) => {
+      if(err) {
+        res.status(400).send(err);
+      } else {
+        res.status(200).json(event);
+      }
+    });
+  } else {
+    res.status(400).send('invalid company');
+  }
+   
+}
+
 exports.getIndividualPart = (req, res) => {
 	db.collection(PARTS_COLLECTION).findOne({ _id: new ObjectID(req.params.partId), company_id: req.query.company_id  }, (err, event) => {
     if (err) {
