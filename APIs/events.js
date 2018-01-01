@@ -28,7 +28,7 @@ exports.getAllEvents = (req, res) => {
 
 exports.getGlobalEvents = (req, res) => {
   // query params are at req.query
-  if(req.query.company_id === '1100') {
+  if(req.params.companyId === '1100') {
     db.collection(EVENTS_COLLECTION).find({ }).toArray((err, event) => {
       if(err) {
         res.status(400).send(err);
@@ -37,7 +37,7 @@ exports.getGlobalEvents = (req, res) => {
       }
     });
   } else {
-    res.status(400).send('invalid company_id');
+    res.status(400).send('invalid company');
   }
     
 }
