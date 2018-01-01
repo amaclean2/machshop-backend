@@ -32,8 +32,8 @@ exports.getAllCompanies = (req, res) => {
       } else {
         res.status(200).json(company);
       }
-  }
-    
+    });
+  } 
 }
 
 exports.getIndividualCompany = (req, res) => {

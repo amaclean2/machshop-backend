@@ -24,6 +24,7 @@ exports.getAllParts = (req, res) => {
       } else {
         res.status(200).json(event);
       }
+    });
   } else {
     db.collection(PARTS_COLLECTION).find({ company_id: req.query.company_id }).toArray((err, event) => {
       if(err) {
