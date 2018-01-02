@@ -17,7 +17,7 @@ mongodb.MongoClient.connect(enviornment, (err, database) => {
 
 exports.getAllJobs = (req, res) => {
 	// query params are at req.query
-  if(req.query.company_id === '1100') {
+  if(req.query.company_id === '5a4b0203734d1d7cf82ec0b8') {
     db.collection(JOBS_COLLECTION).find({ }).toArray((err, event) => {
       if(err) {
         res.status(400).send(err);
