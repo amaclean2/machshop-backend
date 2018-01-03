@@ -37,7 +37,7 @@ exports.getUsers = (req, res) => {
       }
     });
   } else {
-    db.collection(USERS_COLLECTION).find({ company_id: req.query.companyId }).toArray((err, user) => {
+    db.collection(USERS_COLLECTION).find({ company_id: req.query.company_id }).toArray((err, user) => {
       if(err) {
         res.status(400).send(err);
       } else {
