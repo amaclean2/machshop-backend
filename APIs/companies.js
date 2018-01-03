@@ -17,23 +17,13 @@ mongodb.MongoClient.connect(enviornment, (err, database) => {
 
 exports.getAllCompanies = (req, res) => {
 	// query params are at req.query
-  if(req.query.company_id === '5a4b0203734d1d7cf82ec0b8') {
-    db.collection(COMPANY_COLLECTION).find({ }).toArray((err, company) => {
-      if(err) {
-        res.status(400).send(err);
-      } else {
-        res.status(200).json(company);
-      }
-    });
-  } else {
-    db.collection(COMPANY_COLLECTION).find({ }).toArray((err, company) => {
-      if(err) {
-        res.status(400).send(err);
-      } else {
-        res.status(200).json(company);
-      }
-    });
-  } 
+  db.collection(COMPANY_COLLECTION).find({ }).toArray((err, company) => {
+    if(err) {
+      res.status(400).send(err);
+    } else {
+      res.status(200).json(company);
+    }
+  }); 
 }
 
 exports.getIndividualCompany = (req, res) => {

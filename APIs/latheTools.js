@@ -1,4 +1,4 @@
-const PARTS_COLLECTION	= 'parts';
+const LATHE_COLLECTION	= 'lathe';
 var 	mongodb						= require('mongodb'),
 			ObjectID					= mongodb.ObjectID,
 			portId						= process.env.PORT || 3001,
@@ -12,13 +12,13 @@ mongodb.MongoClient.connect(enviornment, (err, database) => {
   }
 
   db = database;
-  console.log('Parts connection ready');
+  console.log('lathe connection ready');
 });
 
-exports.getAllParts = (req, res) => {
+exports.getAllLatheTools = (req, res) => {
 	// query params are at req.query
   if(req.query.company_id === '5a4b0203734d1d7cf82ec0b8') {
-    db.collection(PARTS_COLLECTION).find({ }).toArray((err, event) => {
+    db.collection(LATHE_COLLECTION).find({ }).toArray((err, event) => {
       if(err) {
         res.status(400).send(err);
       } else {
@@ -26,19 +26,19 @@ exports.getAllParts = (req, res) => {
       }
     });
   } else {
-    db.collection(PARTS_COLLECTION).find({ company_id: req.query.company_id }).toArray((err, event) => {
+    db.collection(LATHE_COLLECTION).find({ company_id: req.query.company_id }).toArray((err, event) => {
       if(err) {
         res.status(400).send(err);
       } else {
         res.status(200).json(event);
       }
     });
-  }
+  } 
 }
 
-exports.getIndividualPart = (req, res) => {
+exports.getIndividualLatheTool = (req, res) => {
   if(req.query.company_id === '5a4b0203734d1d7cf82ec0b8') {
-    db.collection(PARTS_COLLECTION).findOne({ _id: new ObjectID(req.params.partId) }, (err, event) => {
+    db.collection(LATHE_COLLECTION).findOne({ _id: new ObjectID(req.params.latheToolId) }, (err, event) => {
       if (err) {
         res.status(400).send(err);
       } else {
@@ -46,7 +46,7 @@ exports.getIndividualPart = (req, res) => {
       }
     });
   } else {
-    db.collection(PARTS_COLLECTION).findOne({ _id: new ObjectID(req.params.partId), company_id: req.query.company_id  }, (err, event) => {
+    db.collection(LATHE_COLLECTION).findOne({ _id: new ObjectID(req.params.latheToolId), company_id: req.query.company_id }, (err, event) => {
       if (err) {
         res.status(400).send(err);
       } else {
@@ -56,38 +56,38 @@ exports.getIndividualPart = (req, res) => {
   }
 }
 
-exports.postParts = (req, res) => {
-	var newPart = req.body;
+exports.postLatheTool = (req, res) => {
+	var newLatheTool = req.body;
 
-  db.collection(PARTS_COLLECTION).insertOne(newPart, (err, event) => {
+  db.collection(LATHE_COLLECTION).insertOne(newLatheTool, (err, event) => {
     if (err) {
       res.status(400).send(err);
     } else {
-      res.status(200).json(newPart);
+      res.status(200).json(newLatheTool);
     }
   });
 }
 
-exports.putParts = (req, res) => {
+exports.putLatheTool = (req, res) => {
 	var updateDoc = req.body;
   delete updateDoc._id;
 
-  db.collection(PARTS_COLLECTION).updateOne({_id: new ObjectID(req.params.partId)}, updateDoc, (err, event) => {
+  db.collection(LATHE_COLLECTION).updateOne({_id: new ObjectID(req.params.latheToolId)}, updateDoc, (err, event) => {
     if (err) {
       res.status(400).send(err);
     } else {
-      updateDoc._id = req.params.partId;
+      updateDoc._id = req.params.latheToolId;
       res.status(200).json(updateDoc);
     }
   });
 }
 
-exports.deleteParts = (req, res) => {
-	db.collection(PARTS_COLLECTION).deleteOne({ _id: new ObjectID(req.params.partId )}, (err, event) => {
+exports.deleteLatheTool = (req, res) => {
+	db.collection(LATHE_COLLECTION).deleteOne({ _id: new ObjectID(req.params.latheToolId )}, (err, event) => {
     if (err) {
       res.status(400).send(err);
     } else {
-      res.status(200).send({message: 'Part successfully deleted'});
+      res.status(200).send({message: 'Lathe tool successfully deleted'});
     }
   });
 }
