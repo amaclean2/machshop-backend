@@ -1,17 +1,18 @@
-var express     = require('express'),
-    app         = express(),
-    mongodb     = require('mongodb'),
-    bodyParser  = require('body-parser'),
-    portId      = process.env.PORT || 3001;
-    parts       = require('./APIs/parts'),
-    jobs        = require('./APIs/jobs'),
-    events      = require('./APIs/events');
-    users       = require('./APIs/users');
-    companies   = require('./APIs/companies');
-    millTools   = require('./APIs/millTools');
-    latheTools  = require('./APIs/latheTools');
-    otherTools  = require('./APIs/otherTools');
-    setupSheets = require('./APIs/setupSheets');
+var express         = require('express'),
+    app             = express(),
+    mongodb         = require('mongodb'),
+    bodyParser      = require('body-parser'),
+    portId          = process.env.PORT || 3001;
+    parts           = require('./APIs/parts'),
+    jobs            = require('./APIs/jobs'),
+    events          = require('./APIs/events');
+    users           = require('./APIs/users');
+    companies       = require('./APIs/companies');
+    millTools       = require('./APIs/millTools');
+    latheTools      = require('./APIs/latheTools');
+    otherTools      = require('./APIs/otherTools');
+    setupSheets     = require('./APIs/setupSheets');
+    shoppingMill    = require('./APIs/shoppingMill');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -82,3 +83,9 @@ app.get('/api/setup/:setupId', setupSheets.getIndividualSetupSheet);
 app.post('/api/setup', setupSheets.postSetupSheet);
 app.put('/api/setup/:setupId', setupSheets.putSetupSheet);
 app.delete('/api/setup/:setupId', setupSheets.deleteSetupSheet);
+
+app.get('/api/shopping/mill', shoppingMill.getTools);
+app.get('/api/shopping/mill/:toolId', shoppingMill.getIndividualTool);
+app.post('/api/shopping/mill', shoppingMill.postTool);
+app.put('/api/shopping/mill/:toolId', shoppingMill.putTool);
+app.delete('/api/shopping/mill/:toolId', shoppingMill.deleteTool);
