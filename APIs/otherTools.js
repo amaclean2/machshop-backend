@@ -12,7 +12,6 @@ mongodb.MongoClient.connect(enviornment, (err, database) => {
   }
 
   db = database;
-  console.log('other tools connection ready');
 });
 
 exports.getAllOtherTools = (req, res) => {

@@ -12,7 +12,6 @@ mongodb.MongoClient.connect(enviornment, (err, database) => {
   }
 
   db = database;
-  console.log('lathe connection ready');
 });
 
 exports.getAllLatheTools = (req, res) => {

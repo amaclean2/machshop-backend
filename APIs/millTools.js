@@ -12,7 +12,7 @@ mongodb.MongoClient.connect(enviornment, (err, database) => {
   }
 
   db = database;
-  console.log('mill connection ready');
+  console.log('tools connection ready');
 });
 
 exports.getAllMillTools = (req, res) => {

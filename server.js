@@ -3,16 +3,18 @@ var express         = require('express'),
     mongodb         = require('mongodb'),
     bodyParser      = require('body-parser'),
     portId          = process.env.PORT || 3001;
-    parts           = require('./APIs/parts'),
-    jobs            = require('./APIs/jobs'),
-    events          = require('./APIs/events');
+    // parts           = require('./APIs/parts'),
+    // jobs            = require('./APIs/jobs'),
+    // events          = require('./APIs/events');
     users           = require('./APIs/users');
     companies       = require('./APIs/companies');
     millTools       = require('./APIs/millTools');
     latheTools      = require('./APIs/latheTools');
     otherTools      = require('./APIs/otherTools');
-    setupSheets     = require('./APIs/setupSheets');
+    // setupSheets     = require('./APIs/setupSheets');
     shoppingMill    = require('./APIs/shoppingMill');
+    shoppingLathe   = require('./APIs/shoppingLathe');
+    shoppingOther   = require('./APIs/shoppingOther');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -29,23 +31,23 @@ app.use( (req, res, next) => {
 	next();
 });
 
-app.get('/api/parts', parts.getAllParts);
-app.get("/api/parts/:partId", parts.getIndividualPart);
-app.post("/api/parts", parts.postParts);
-app.put("/api/parts/:partId", parts.putParts);
-app.delete("/api/parts/:partId", parts.deleteParts);
+// app.get('/api/parts', parts.getAllParts);
+// app.get("/api/parts/:partId", parts.getIndividualPart);
+// app.post("/api/parts", parts.postParts);
+// app.put("/api/parts/:partId", parts.putParts);
+// app.delete("/api/parts/:partId", parts.deleteParts);
 
-app.get('/api/jobs', jobs.getAllJobs);
-app.get('/api/jobs/:jobId', jobs.getIndividualJob);
-app.post('/api/jobs', jobs.postJobs);
-app.put('/api/jobs/:jobId', jobs.putJobs);
-app.delete('/api/jobs/:jobId', jobs.deleteJobs);
+// app.get('/api/jobs', jobs.getAllJobs);
+// app.get('/api/jobs/:jobId', jobs.getIndividualJob);
+// app.post('/api/jobs', jobs.postJobs);
+// app.put('/api/jobs/:jobId', jobs.putJobs);
+// app.delete('/api/jobs/:jobId', jobs.deleteJobs);
 
-app.get('/api/events', events.getAllEvents);
-app.get('/api/events/:eventId', events.getIndividualEvent);
-app.post('/api/events', events.postEvents);
-app.put('/api/events/:eventId', events.putEvents);
-app.delete('/api/events/:eventId', events.deleteEvents);
+// app.get('/api/events', events.getAllEvents);
+// app.get('/api/events/:eventId', events.getIndividualEvent);
+// app.post('/api/events', events.postEvents);
+// app.put('/api/events/:eventId', events.putEvents);
+// app.delete('/api/events/:eventId', events.deleteEvents);
 
 app.get('/api/users', users.getUsers);
 app.get('/api/allusers', users.getWithoutAuth);
@@ -78,14 +80,26 @@ app.post('/api/other', otherTools.postOtherTool);
 app.put('/api/other/:otherToolId', otherTools.putOtherTool);
 app.delete('/api/other/:otherToolId', otherTools.deleteOtherTool);
 
-app.get('/api/setup', setupSheets.getAllSetupSheets);
-app.get('/api/setup/:setupId', setupSheets.getIndividualSetupSheet);
-app.post('/api/setup', setupSheets.postSetupSheet);
-app.put('/api/setup/:setupId', setupSheets.putSetupSheet);
-app.delete('/api/setup/:setupId', setupSheets.deleteSetupSheet);
+// app.get('/api/setup', setupSheets.getAllSetupSheets);
+// app.get('/api/setup/:setupId', setupSheets.getIndividualSetupSheet);
+// app.post('/api/setup', setupSheets.postSetupSheet);
+// app.put('/api/setup/:setupId', setupSheets.putSetupSheet);
+// app.delete('/api/setup/:setupId', setupSheets.deleteSetupSheet);
 
 app.get('/api/shopping/mill', shoppingMill.getTools);
 app.get('/api/shopping/mill/:toolId', shoppingMill.getIndividualTool);
 app.post('/api/shopping/mill', shoppingMill.postTool);
 app.put('/api/shopping/mill/:toolId', shoppingMill.putTool);
 app.delete('/api/shopping/mill/:toolId', shoppingMill.deleteTool);
+
+app.get('/api/shopping/lathe', shoppingLathe.getTools);
+app.get('/api/shopping/lathe/:toolId', shoppingLathe.getIndividualTool);
+app.post('/api/shopping/lathe', shoppingLathe.postTool);
+app.put('/api/shopping/lathe/:toolId', shoppingLathe.putTool);
+app.delete('/api/shopping/lathe/:toolId', shoppingLathe.deleteTool);
+
+app.get('/api/shopping/other', shoppingOther.getTools);
+app.get('/api/shopping/other/:toolId', shoppingOther.getIndividualTool);
+app.post('/api/shopping/other', shoppingOther.postTool);
+app.put('/api/shopping/other/:toolId', shoppingOther.putTool);
+app.delete('/api/shopping/other/:toolId', shoppingOther.deleteTool);
