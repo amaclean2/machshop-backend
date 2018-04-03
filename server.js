@@ -8,9 +8,9 @@ var express         = require('express'),
     // events          = require('./APIs/events');
     users           = require('./APIs/users');
     companies       = require('./APIs/companies');
-    millTools       = require('./APIs/millTools');
-    latheTools      = require('./APIs/latheTools');
-    otherTools      = require('./APIs/otherTools');
+    // millTools       = require('./APIs/millTools');
+    // latheTools      = require('./APIs/latheTools');
+    // otherTools      = require('./APIs/otherTools');
     // setupSheets     = require('./APIs/setupSheets');
     shoppingMill    = require('./APIs/shoppingMill');
     shoppingLathe   = require('./APIs/shoppingLathe');
@@ -62,23 +62,23 @@ app.post('/api/companies', companies.postCompany);
 app.put('/api/companies/:companyId', companies.putCompany);
 app.delete('/api/companies/:companyId', companies.deleteCompany);
 
-app.get('/api/mill', millTools.getAllMillTools);
-app.get('/api/mill/:millToolId', millTools.getIndividualMillTool);
-app.post('/api/mill', millTools.postMillTool);
-app.put('/api/mill/:millToolId', millTools.putMillTool);
-app.delete('/api/mill/:millToolId', millTools.deleteMillTool);
+// app.get('/api/mill', millTools.getAllMillTools);
+// app.get('/api/mill/:millToolId', millTools.getIndividualMillTool);
+// app.post('/api/mill', millTools.postMillTool);
+// app.put('/api/mill/:millToolId', millTools.putMillTool);
+// app.delete('/api/mill/:millToolId', millTools.deleteMillTool);
 
-app.get('/api/lathe', latheTools.getAllLatheTools);
-app.get('/api/lathe/:latheToolId', latheTools.getIndividualLatheTool);
-app.post('/api/lathe', latheTools.postLatheTool);
-app.put('/api/lathe/:latheToolId', latheTools.putLatheTool);
-app.delete('/api/lathe/:latheToolId', latheTools.deleteLatheTool);
+// app.get('/api/lathe', latheTools.getAllLatheTools);
+// app.get('/api/lathe/:latheToolId', latheTools.getIndividualLatheTool);
+// app.post('/api/lathe', latheTools.postLatheTool);
+// app.put('/api/lathe/:latheToolId', latheTools.putLatheTool);
+// app.delete('/api/lathe/:latheToolId', latheTools.deleteLatheTool);
 
-app.get('/api/other', otherTools.getAllOtherTools);
-app.get('/api/other/:otherToolId', otherTools.getIndividualOtherTool);
-app.post('/api/other', otherTools.postOtherTool);
-app.put('/api/other/:otherToolId', otherTools.putOtherTool);
-app.delete('/api/other/:otherToolId', otherTools.deleteOtherTool);
+// app.get('/api/other', otherTools.getAllOtherTools);
+// app.get('/api/other/:otherToolId', otherTools.getIndividualOtherTool);
+// app.post('/api/other', otherTools.postOtherTool);
+// app.put('/api/other/:otherToolId', otherTools.putOtherTool);
+// app.delete('/api/other/:otherToolId', otherTools.deleteOtherTool);
 
 // app.get('/api/setup', setupSheets.getAllSetupSheets);
 // app.get('/api/setup/:setupId', setupSheets.getIndividualSetupSheet);

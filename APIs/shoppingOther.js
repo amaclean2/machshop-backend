@@ -16,43 +16,23 @@ mongodb.MongoClient.connect(enviornment, (err, database) => {
 
 exports.getTools = (req, res) => {
 	// query params are at req.query
-  if(req.query.company_id === '5a4b0203734d1d7cf82ec0b8') {
-    db.collection(SHOPPING_COLLECTION).find({ }).toArray((err, event) => {
-      if(err) {
-        res.status(400).send(err);
-      } else {
-        res.status(200).json(event);
-      }
-    });
-  } else {
-    db.collection(SHOPPING_COLLECTION).find({ company_id: req.query.company_id }).toArray((err, event) => {
-      if(err) {
-        res.status(400).send(err);
-      } else {
-        res.status(200).json(event);
-      }
-    });
-  } 
+  db.collection(SHOPPING_COLLECTION).find({ company_id: req.query.company_id }).toArray((err, event) => {
+    if(err) {
+      res.status(400).send(err);
+    } else {
+      res.status(200).json(event);
+    }
+  });
 }
 
 exports.getIndividualTool = (req, res) => {
-  if(req.query.company_id === '5a4b0203734d1d7cf82ec0b8') {
-    db.collection(SHOPPING_COLLECTION).findOne({ _id: new ObjectID(req.params.toolId) }, (err, event) => {
-      if (err) {
-        res.status(400).send(err);
-      } else {
-        res.status(200).json(event);
-      }
-    });
-  } else {
-    db.collection(SHOPPING_COLLECTION).findOne({ _id: new ObjectID(req.params.toolId), company_id: req.query.company_id }, (err, event) => {
-      if (err) {
-        res.status(400).send(err);
-      } else {
-        res.status(200).json(event);
-      }
-    });
-  }	
+  db.collection(SHOPPING_COLLECTION).findOne({ _id: new ObjectID(req.params.toolId), company_id: req.query.company_id }, (err, event) => {
+    if (err) {
+      res.status(400).send(err);
+    } else {
+      res.status(200).json(event);
+    }
+  });
 }
 
 exports.postTool = (req, res) => {
