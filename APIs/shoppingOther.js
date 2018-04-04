@@ -58,7 +58,7 @@ exports.putTool = (req, res) => {
     if (err) {
       res.status(400).send(err);
     } else {
-      updateDoc._id = req.params.toolId;
+      updatedTool._id = req.params.toolId;
       res.status(200).json(updatedTool);
     }
   });
