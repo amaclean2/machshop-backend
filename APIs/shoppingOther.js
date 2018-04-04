@@ -37,6 +37,8 @@ exports.getIndividualTool = (req, res) => {
 
 exports.postTool = (req, res) => {
 	var newTool = req.body;
+  newTool.created_at = new Date().getTime();
+  newTool.updated_at = new Date().getTime();
 
   db.collection(SHOPPING_COLLECTION).insertOne(newTool, (err, event) => {
     if (err) {
@@ -48,15 +50,16 @@ exports.postTool = (req, res) => {
 }
 
 exports.putTool = (req, res) => {
-	var updateDoc = req.body;
-  delete updateDoc._id;
+	var updatedTool = req.body;
+  updatedTool.updated_at = new Date().getTime();
+  delete updatedTool._id;
 
-  db.collection(SHOPPING_COLLECTION).updateOne({_id: new ObjectID(req.params.toolId)}, updateDoc, (err, event) => {
+  db.collection(SHOPPING_COLLECTION).updateOne({_id: new ObjectID(req.params.toolId)}, updatedTool, (err, event) => {
     if (err) {
       res.status(400).send(err);
     } else {
       updateDoc._id = req.params.toolId;
-      res.status(200).json(updateDoc);
+      res.status(200).json(updatedTool);
     }
   });
 }
