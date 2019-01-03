@@ -15,48 +15,28 @@ mongodb.MongoClient.connect(enviornment, (err, database) => {
   console.log('setup sheet connection ready');
 });
 
-exports.getAllSetupSheets = (req, res) => {
+exports.getSheets = (req, res) => {
 	// query params are at req.query
-  if(req.query.company_id === '5a4b0203734d1d7cf82ec0b8') {
-    db.collection(SETUP_COLLECTION).find({ }).toArray((err, event) => {
-      if(err) {
-        res.status(400).send(err);
-      } else {
-        res.status(200).json(event);
-      }
-    });
-  } else {
-    db.collection(SETUP_COLLECTION).find({ company_id: req.query.company_id }).toArray((err, event) => {
-      if(err) {
-        res.status(400).send(err);
-      } else {
-        res.status(200).json(event);
-      }
-    });
-  } 
+  db.collection(SETUP_COLLECTION).find({ company_id: req.query.company_id }).toArray((err, event) => {
+    if(err) {
+      res.status(400).send(err);
+    } else {
+      res.status(200).json(event);
+    }
+  });
 }
 
-exports.getIndividualSetupSheet = (req, res) => {
-  if(req.query.company_id === '5a4b0203734d1d7cf82ec0b8') {
-    db.collection(SETUP_COLLECTION).findOne({ _id: new ObjectID(req.params.setupId) }, (err, event) => {
-      if (err) {
-        res.status(400).send(err);
-      } else {
-        res.status(200).json(event);
-      }
-    });
-  } else {
-    db.collection(SETUP_COLLECTION).findOne({ _id: new ObjectID(req.params.setupId), company_id: req.query.company_id }, (err, event) => {
-      if (err) {
-        res.status(400).send(err);
-      } else {
-        res.status(200).json(event);
-      }
-    });
-  }
+exports.getIndividualSheet = (req, res) => {
+  db.collection(SETUP_COLLECTION).findOne({ _id: new ObjectID(req.params.setupId), company_id: req.query.company_id }, (err, event) => {
+    if (err) {
+      res.status(400).send(err);
+    } else {
+      res.status(200).json(event);
+    }
+  });
 }
 
-exports.postSetupSheet = (req, res) => {
+exports.postSheet = (req, res) => {
 	var newSetupSheet = req.body;
 
   db.collection(SETUP_COLLECTION).insertOne(newSetupSheet, (err, event) => {
@@ -68,7 +48,7 @@ exports.postSetupSheet = (req, res) => {
   });
 }
 
-exports.putSetupSheet = (req, res) => {
+exports.putSheet = (req, res) => {
 	var updateDoc = req.body;
   delete updateDoc._id;
 
@@ -82,7 +62,7 @@ exports.putSetupSheet = (req, res) => {
   });
 }
 
-exports.deleteSetupSheet = (req, res) => {
+exports.deleteSheet = (req, res) => {
 	db.collection(SETUP_COLLECTION).deleteOne({ _id: new ObjectID(req.params.setupId )}, (err, event) => {
     if (err) {
       res.status(400).send(err);
